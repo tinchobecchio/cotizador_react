@@ -1,5 +1,7 @@
 import Header from "./components/Header";
+import Formulario from "./components/Formulario";
 import styled from "@emotion/styled";
+
 
 const Contenedor = styled.div`
   max-width: 600px;
@@ -20,7 +22,7 @@ function App() {
       />
 
       <ContenedorFormulario>
-        
+        <Formulario />
       </ContenedorFormulario>
     </Contenedor>
     
