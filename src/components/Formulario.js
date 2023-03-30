@@ -19,7 +19,7 @@ const Select = styled.select`
     -webkit-appearance: none;
 `
 const InputRadio = styled.input`
-    margin: 0 1rem;
+    margin:0 1rem;
 `
 const Boton = styled.button`
     background-color: #00838f;
@@ -82,10 +82,15 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
         guardarError(false)
 
         // Una base de 2000 (lo que sale el seguro)
-        let resultado = 2000
+        let resultado = 4000
 
         // obtener la diferencia de años
-        const diferencia = obtenerDiferenciaYear(year)
+        let diferencia = obtenerDiferenciaYear(year)
+        
+        // Establezco el minimo que se cobra, sino se sigue aplicando el 3% y queda en negativo
+        if(diferencia > 30) {
+            diferencia = 30
+        }
 
         // por cada año hay que restar el 3%
         resultado -= (( diferencia * 3 ) * resultado) / 100
@@ -117,6 +122,12 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
 
     }
 
+    // Para mostrar los años en los options
+    const actualYear = new Date().getFullYear()
+    let years = []
+    for (let i = actualYear; i > 1949 ; i--) {
+        years.push(i)
+    }
 
     return (
         <form
@@ -145,18 +156,9 @@ const Formulario = ({guardarResumen, guardarCargando}) => {
                     onChange={obtenerInfo}
                 >
                     <option value="">-- Seleccione --</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                    <option value="2014">2014</option>
-                    <option value="2013">2013</option>
-                    <option value="2012">2012</option>
+                    {years.map(y => {
+                        return <option key={y} value={y}>{y}</option>
+                    })}
                 </Select>
             </Campo>
 
