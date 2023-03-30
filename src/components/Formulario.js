@@ -50,7 +50,7 @@ const Error = styled.div`
 
 
 
-const Formulario = () => {
+const Formulario = ({guardarResumen}) => {
 
     const [ datos, guardarDatos] = useState({
         marca: '',
@@ -99,8 +99,12 @@ const Formulario = () => {
         // Basico aumenta 20%
         // Completo aumenta 50%
         resultado = parseFloat( obtenerPlan(plan) * resultado ).toFixed(2)
-        console.log(resultado);
-
+        
+        // pasar al state resumen
+        guardarResumen({
+            cotizacion: resultado,
+            datos
+        })
 
 
     }
